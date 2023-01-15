@@ -26,7 +26,7 @@ wss.on("connection", (socket)=>{
     sockets.push(socket);
 
     console.log("connected to browser");
-    socket.on("message",(message)=>{sockets.forEach((broswerSocket)=>{broswerSocket.send(message.toString)})})
+    socket.on("message",(message)=>{sockets.forEach((broswerSocket)=>{broswerSocket.send(message.toString())})})
     socket.on("close",()=>{console.log("broswer is closed")})
 });
 
