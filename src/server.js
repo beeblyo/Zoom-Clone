@@ -23,10 +23,26 @@ const wss = new WebSocketServer({server});
 const sockets = [];
 
 wss.on("connection", (socket)=>{
+    // console.log("connected to browser");
     sockets.push(socket);
+    socket["nickname"] = "anonymous";
 
-    console.log("connected to browser");
-    socket.on("message",(message)=>{sockets.forEach((broswerSocket)=>{broswerSocket.send(message.toString())})})
+    socket.on("message",(message)=>{
+        const parsed = JSON.parse(message);
+        if(parsed.type == "message"){
+            const userMessage = parsed.payload;
+            sockets.forEach((broswerSocket)=>{
+            broswerSocket.send(`${userMessage}`)
+        })}
+        if(parsed.type == "nickname"){
+            const nickname = parsed.payload;
+            socket["nickname"] = nickname;
+        }
+
+
+
+    })
+        
     socket.on("close",()=>{console.log("broswer is closed")})
 });
 
