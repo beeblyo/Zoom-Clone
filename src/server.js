@@ -23,7 +23,9 @@ const wss = new WebSocketServer({server});
 const sockets = [];
 
 wss.on("connection", (socket)=>{
-    // console.log("connected to browser");
+    
+    const time = new Date();
+
     sockets.push(socket);
     socket["nickname"] = "anonymous";
 
@@ -32,13 +34,12 @@ wss.on("connection", (socket)=>{
         if(parsed.type == "message"){
             const userMessage = parsed.payload;
             sockets.forEach((broswerSocket)=>{
-            broswerSocket.send(`${userMessage}`)
+            broswerSocket.send(`${socket.nickname} : ${userMessage} [${time.toLocaleString()}]`)
         })}
         if(parsed.type == "nickname"){
             const nickname = parsed.payload;
             socket["nickname"] = nickname;
         }
-
 
 
     })

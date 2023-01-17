@@ -15,6 +15,9 @@ socket.addEventListener("close",()=>{console.log("disconnected from server")});
 
 
 
+
+
+/////////////////////////////////////
 function makeMessage(type, payload) {
     const msg = { type, payload };
     return JSON.stringify(msg);
@@ -25,6 +28,7 @@ function handleSave(evt){
     evt.preventDefault();
     const input = nicknameForm.querySelector("#nick input");
     socket.send(makeMessage("nickname",input.value));
+    input.value = "";
 }
 
 function handleSubmit(evt){
