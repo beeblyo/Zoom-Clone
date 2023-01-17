@@ -17,8 +17,10 @@ app.get("/*",(req,res)=>{res.redirect("/")});
 const httpServer = http.createServer(app);
 const ioServer =  new Server(httpServer);
 
-ioServer.on("connection",socket=>{
-    console.log(socket)
+ioServer.on("connection", socket=>
+{
+    //console.log(socket)
+    socket.on("enter-room", (msg,string,test) => {console.log(msg,string,test())});
 });
 
 httpServer.listen(3000);

@@ -10,6 +10,9 @@ html(lang="en")
     header
         h1 Zoom
     main
-
+        div#welcome
+            form
+                input(type="text", placeholder="write room name", required)
+                button Enter Chat Room 
     script(src="socket.io/socket.io.js")
     script(src="public/js/app.js")
